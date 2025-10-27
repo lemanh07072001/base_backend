@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { UserStatusEnum } from '../enum/user.enum';
+import { UserRoleEnum, UserStatusEnum } from '../enum/user.enum';
 
 @Entity()
 export class Users {
@@ -15,11 +15,32 @@ export class Users {
   @Column()
   password: string;
 
+  @Column()
+  avatar: string;
+
+  @Column({
+    type: 'int',
+    default: UserRoleEnum.USER,
+  })
+  role: UserRoleEnum;
+
   @Column({
     type: 'int',
     default: UserStatusEnum.ACTIVE,
   })
   status: UserStatusEnum;
+
+  @Column({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  email_verified_at: Date;
+
+  @Column({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  last_login_at: Date;
 
   @Column({
     type: 'timestamp',
